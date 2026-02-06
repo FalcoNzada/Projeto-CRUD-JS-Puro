@@ -1,0 +1,114 @@
+Fluxograma do CRUD de Produtos (Mermaid)
+✅ 1. Fluxograma Geral (Inicialização do Sistema)
+flowchart TD
+    A[Início] --> B[Abrir Página index.html]
+    B --> C[Carregar tema do LocalStorage]
+    C --> D[Carregar lista de produtos do LocalStorage]
+    D --> E[Renderizar tabela de produtos]
+    E --> F[Fim]
+
+2. Fluxograma de Cadastro / Edição de Produto
+flowchart TD
+    A[Usuário envia formulário] --> B[Capturar dados do formulário]
+    B --> C{Campos preenchidos?}
+
+    C -- Não --> D[Mostrar Toast de erro]
+    D --> Z[Fim]
+
+    C -- Sim --> E{Preço maior que 0?}
+
+    E -- Não --> F[Toast: Preço inválido]
+    F --> Z
+
+    E -- Sim --> G{Existe ID? (modo edição)}
+
+    G -- Não --> H[Criar novo produto]
+    H --> I[Adicionar produto na lista]
+    I --> J[Salvar no LocalStorage]
+    J --> K[Renderizar tabela atualizada]
+    K --> L[Toast: Produto adicionado]
+    L --> Z
+
+    G -- Sim --> M[Atualizar produto existente]
+    M --> N[Salvar no LocalStorage]
+    N --> O[Renderizar tabela atualizada]
+    O --> P[Toast: Produto atualizado]
+    P --> Z
+
+3. Fluxograma de Exclusão de Produto
+flowchart TD
+    A[Usuário clica em Excluir] --> B{Confirmar exclusão?}
+
+    B -- Não --> C[Cancelar operação]
+    C --> Z[Fim]
+
+    B -- Sim --> D[Remover produto da lista]
+    D --> E[Salvar no LocalStorage]
+    E --> F[Renderizar tabela atualizada]
+    F --> G[Toast: Produto removido]
+    G --> Z
+
+4. Fluxograma de Busca e Ordenação
+flowchart TD
+    A[Usuário digita na busca ou seleciona ordenação] --> B[Capturar valor de busca e tipo de ordenação]
+    B --> C[Filtrar produtos por nome ou categoria]
+    C --> D{Ordenação selecionada?}
+
+    D -- Nome --> E[Ordenar por nome A-Z]
+    D -- Preço --> F[Ordenar por preço menor-maior]
+    D -- Categoria --> G[Ordenar por categoria A-Z]
+    D -- Nenhuma --> H[Manter ordem original]
+
+    E --> I[Renderizar tabela filtrada]
+    F --> I
+    G --> I
+    H --> I
+
+    I --> Z[Fim]
+
+5. Fluxograma do Tema Dark/Light
+flowchart TD
+    A[Usuário clica no botão Dark/Light] --> B[Alternar classe CSS no body]
+    B --> C{Tema atual é Light?}
+
+    C -- Sim --> D[Salvar theme=light no LocalStorage]
+    C -- Não --> E[Salvar theme=dark no LocalStorage]
+
+    D --> F[Atualizar texto do botão]
+    E --> F
+
+    F --> G[Toast: Tema alterado]
+    G --> Z[Fim]
+
+6. Fluxograma de Exportação JSON
+flowchart TD
+    A[Usuário clica Exportar] --> B[Converter lista de produtos para JSON]
+    B --> C[Criar arquivo produtos.json]
+    C --> D[Download automático]
+    D --> E[Toast: Exportado com sucesso]
+    E --> Z[Fim]
+
+7. Fluxograma de Importação JSON
+flowchart TD
+    A[Usuário seleciona arquivo JSON] --> B[Ler arquivo]
+    B --> C{Arquivo é JSON válido?}
+
+    C -- Não --> D[Toast: Erro ao importar]
+    D --> Z[Fim]
+
+    C -- Sim --> E{Conteúdo é uma lista (Array)?}
+
+    E -- Não --> F[Toast: Arquivo inválido]
+    F --> Z
+
+    E -- Sim --> G[Substituir produtos atuais]
+    G --> H[Salvar no LocalStorage]
+    H --> I[Renderizar tabela atualizada]
+    I --> J[Toast: Importado com sucesso]
+    J --> Z
+
+
+
+
+
+
