@@ -141,10 +141,8 @@ Integração com API e banco de dados futuramente
 
 👨‍💻 Autor
 
-Projeto desenvolvido por [Seu Nome]
-📌 LinkedIn: Seu LinkedIn
-
-📌 GitHub: Seu GitHub
+Projeto desenvolvido por Thales de Lima Barbosa
+📌 LinkedIn: https://www.linkedin.com/in/thales-de-lima-barbosa 
 
 📜 Licença
 
