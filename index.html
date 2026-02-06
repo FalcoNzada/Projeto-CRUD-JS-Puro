@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CRUD de Produtos</title>
+  <link rel="stylesheet" href="csscrud.css" />
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>📦 CRUD de Produtos</h1>
+
+      <div class="header-actions">
+        <button id="toggleTheme">🌙 Dark</button>
+        <button id="exportBtn">📤 Exportar</button>
+        <label class="import-label">
+          📥 Importar
+          <input type="file" id="importFile" hidden />
+        </label>
+      </div>
+    </header>
+
+    <form id="productForm">
+      <input type="hidden" id="productId" />
+
+      <div class="form-group">
+        <label for="name">Nome do Produto</label>
+        <input type="text" id="name" placeholder="Ex: Teclado Gamer" required />
+      </div>
+
+      <div class="form-group">
+        <label for="price">Preço (R$)</label>
+        <input type="number" id="price" placeholder="Ex: 199.90" required />
+      </div>
+
+      <div class="form-group">
+        <label for="category">Categoria</label>
+        <input type="text" id="category" placeholder="Ex: Periféricos" required />
+      </div>
+
+      <button type="submit" id="submitBtn">Adicionar Produto</button>
+      <button type="button" id="cancelBtn" class="cancel hidden">Cancelar</button>
+    </form>
+
+    <div class="toolbar">
+      <input type="text" id="searchInput" placeholder="🔎 Buscar produto..." />
+
+      <select id="sortSelect">
+        <option value="default">Ordenar por...</option>
+        <option value="name">Nome (A-Z)</option>
+        <option value="price">Preço (menor → maior)</option>
+        <option value="category">Categoria (A-Z)</option>
+      </select>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Preço</th>
+          <th>Categoria</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+
+      <tbody id="productTable"></tbody>
+    </table>
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="jscrud.js"></script>
+</body>
+</html>

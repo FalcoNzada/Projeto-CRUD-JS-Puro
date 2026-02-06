@@ -1,0 +1,196 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+:root {
+  --bg: #0f172a;
+  --card: #1e293b;
+  --card2: #0b1220;
+  --text: #ffffff;
+  --muted: #cbd5e1;
+  --primary: #22c55e;
+  --danger: #ef4444;
+  --info: #3b82f6;
+  --header: #334155;
+}
+
+.light {
+  --bg: #f1f5f9;
+  --card: #ffffff;
+  --card2: #e2e8f0;
+  --text: #0f172a;
+  --muted: #475569;
+  --header: #cbd5e1;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
+  justify-content: center;
+  padding: 40px;
+  transition: 0.3s;
+}
+
+.container {
+  width: 950px;
+  background: var(--card);
+  padding: 25px;
+  border-radius: 14px;
+  box-shadow: 0px 0px 12px rgba(0,0,0,0.3);
+  transition: 0.3s;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+h1 {
+  font-size: 22px;
+}
+
+.header-actions {
+  display: flex;
+  gap: 10px;
+}
+
+button, .import-label {
+  padding: 9px 14px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  background: var(--header);
+  color: var(--text);
+  transition: 0.2s;
+}
+
+button:hover, .import-label:hover {
+  opacity: 0.85;
+}
+
+form {
+  background: var(--card2);
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  outline: none;
+  background: var(--card);
+  color: var(--text);
+}
+
+#submitBtn {
+  background: var(--primary);
+  color: white;
+}
+
+.cancel {
+  background: var(--danger);
+  color: white;
+  margin-left: 10px;
+}
+
+.hidden {
+  display: none;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+#searchInput {
+  flex: 1;
+}
+
+select {
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  background: var(--card2);
+  color: var(--text);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--card2);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+th, td {
+  padding: 12px;
+  text-align: left;
+}
+
+th {
+  background: var(--header);
+}
+
+tr:nth-child(even) {
+  background: rgba(255,255,255,0.03);
+}
+
+.actions button {
+  margin-right: 6px;
+  padding: 7px 10px;
+  border-radius: 6px;
+}
+
+.edit {
+  background: var(--info);
+  color: white;
+}
+
+.delete {
+  background: var(--danger);
+  color: white;
+}
+
+.badge {
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: rgba(34,197,94,0.2);
+  color: var(--primary);
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.toast {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 12px 18px;
+  background: var(--card);
+  border-left: 5px solid var(--primary);
+  border-radius: 10px;
+  box-shadow: 0px 0px 12px rgba(0,0,0,0.3);
+  font-weight: bold;
+  transition: 0.3s;
+}
