@@ -1,0 +1,123 @@
+🟢 Feature: Cadastro de Produto
+
+ - Scenario: Cadastrar produto com sucesso
+    Given que o usuário está na página principal
+    When ele preenche nome, preço e categoria corretamente
+    And clica em "Adicionar Produto"
+    Then o sistema deve salvar o produto no LocalStorage
+    And exibir o produto na tabela
+    And mostrar uma mensagem de sucesso
+
+- Scenario: Impedir cadastro com campos vazios
+  Given que o usuário está na página principal
+  When ele tenta cadastrar um produto sem preencher todos os campos
+  Then o sistema deve impedir o cadastro
+  And mostrar uma mensagem de erro
+
+- Scenario: Impedir cadastro com preço inválido
+  Given que o usuário está na página principal
+  When ele informa um preço menor ou igual a zero
+  Then o sistema deve impedir o cadastro
+  And mostrar uma mensagem de erro
+
+🟡 Feature: Edição de Produto
+
+Feature: Edição de Produto
+
+ - Scenario: Editar produto com sucesso
+    Given que existe um produto cadastrado
+    When o usuário clica em "Editar"
+    And altera os dados do produto
+    And clica em "Salvar Alterações"
+    Then o sistema deve atualizar o produto no LocalStorage
+    And exibir os dados atualizados na tabela
+    And mostrar uma mensagem de sucesso
+
+- Scenario: Cancelar edição de produto
+  Given que o usuário iniciou a edição de um produto
+  When ele clica em "Cancelar"
+  Then o formulário deve ser limpo
+  And o sistema deve sair do modo edição
+  And mostrar uma mensagem de cancelamento
+
+🔴 Feature: Exclusão de Produto
+
+Feature: Exclusão de Produto
+
+ - Scenario: Excluir produto com confirmação
+    Given que existe um produto cadastrado
+    When o usuário clica em "Excluir"
+    And confirma a exclusão
+    Then o sistema deve remover o produto
+    And atualizar o LocalStorage
+    And remover o produto da tabela
+    And mostrar uma mensagem de sucesso
+
+- Scenario: Cancelar exclusão de produto
+  Given que existe um produto cadastrado
+  When o usuário clica em "Excluir"
+  And cancela a confirmação
+  Then o sistema não deve remover o produto
+  And o produto deve permanecer na tabela
+
+🔎 Feature: Busca e Ordenação
+
+Feature: Busca de Produtos
+
+ - Scenario: Buscar produto pelo nome
+    Given que existem produtos cadastrados
+    When o usuário digita um nome no campo de busca
+    Then o sistema deve filtrar e exibir apenas os produtos correspondentes
+
+Feature: Ordenação de Produtos
+
+ - Scenario: Ordenar produtos por preço
+    Given que existem produtos cadastrados
+    When o usuário seleciona a ordenação por preço
+    Then o sistema deve ordenar os produtos do menor para o maior
+
+📤 Feature: Exportação
+
+Feature: Exportação de Produtos
+
+ - Scenario: Exportar lista de produtos
+    Given que existem produtos cadastrados
+    When o usuário clica em "Exportar"
+    Then o sistema deve gerar um arquivo JSON
+    And iniciar o download do arquivo produtos.json
+
+📥 Feature: Importação
+
+Feature: Importação de Produtos
+
+ - Scenario: Importar produtos com sucesso
+    Given que o usuário possui um arquivo JSON válido
+    When ele importa o arquivo
+    Then o sistema deve carregar os produtos
+    And salvar no LocalStorage
+    And exibir os produtos na tabela
+
+- Scenario: Importar arquivo inválido
+  Given que o usuário seleciona um arquivo JSON inválido
+  When ele tenta importar
+  Then o sistema deve impedir a importação
+  And mostrar uma mensagem de erro
+
+🌙 Feature: Tema Dark/Light
+
+Feature: Alternar Tema
+
+ - Scenario: Alterar para tema claro
+    Given que o usuário está no tema escuro
+    When ele clica no botão de tema
+    Then o sistema deve aplicar o tema claro
+    And salvar a preferência no LocalStorage
+
+
+
+
+
+
+
+
+
