@@ -1,0 +1,231 @@
+# 📌 Documentação UML - CRUD de Produtos
+
+## 📖 Visão Geral
+Este documento apresenta a documentação UML e especificações do sistema **CRUD de Produtos**, desenvolvido com **HTML, CSS e JavaScript puro**, utilizando **LocalStorage** como forma de persistência de dados.
+
+O objetivo do sistema é permitir ao usuário gerenciar produtos cadastrados, oferecendo funcionalidades de cadastro, edição, exclusão, listagem, busca, ordenação e exportação/importação de dados.
+
+---
+
+# 👤 Atores do Sistema
+
+## 🧑 Usuário
+O usuário é responsável por interagir com o sistema através da interface, realizando todas as operações disponíveis.
+
+---
+
+# 📌 Diagramas UML
+
+## ✅ 1. Diagrama de Caso de Uso (Use Case Diagram)
+
+Este diagrama representa as principais funcionalidades disponíveis para o usuário dentro do sistema.
+
+```mermaid
+flowchart LR
+    User((Usuário))
+
+    UC1([Cadastrar Produto])
+    UC2([Listar Produtos])
+    UC3([Editar Produto])
+    UC4([Excluir Produto])
+    UC5([Buscar Produto])
+    UC6([Ordenar Produtos])
+    UC7([Exportar Produtos JSON])
+    UC8([Importar Produtos JSON])
+    UC9([Alternar Tema Dark/Light])
+
+    User --> UC1
+    User --> UC2
+    User --> UC3
+    User --> UC4
+    User --> UC5
+    User --> UC6
+    User --> UC7
+    User --> UC8
+    User --> UC9
+
+✅2. Diagrama de Atividades (Activity Diagram)
+Este diagrama representa o fluxo geral de execução do sistema, desde a inicialização até as operações realizadas pelo usuário.
+
+flowchart TD
+    A[Início] --> B[Abrir Sistema]
+    B --> C[Carregar tema do LocalStorage]
+    C --> D[Carregar produtos do LocalStorage]
+    D --> E[Renderizar tabela]
+
+    E --> F{Usuário escolhe ação}
+
+    F -->|Cadastrar| G[Preencher formulário]
+    G --> H[Validar campos]
+    H --> I{Campos válidos?}
+    I -->|Não| J[Mostrar erro Toast]
+    J --> E
+    I -->|Sim| K[Salvar produto na lista]
+    K --> L[Salvar LocalStorage]
+    L --> M[Renderizar tabela]
+    M --> E
+
+    F -->|Editar| N[Selecionar produto]
+    N --> O[Preencher formulário com dados]
+    O --> P[Salvar alterações]
+    P --> L
+
+    F -->|Excluir| Q[Selecionar produto]
+    Q --> R{Confirmar exclusão?}
+    R -->|Não| E
+    R -->|Sim| S[Remover produto]
+    S --> L
+
+    F -->|Buscar/Ordenar| T[Filtrar produtos]
+    T --> U[Aplicar ordenação]
+    U --> V[Renderizar tabela filtrada]
+    V --> E
+
+    F -->|Exportar| W[Gerar arquivo JSON]
+    W --> X[Baixar arquivo]
+    X --> E
+
+    F -->|Importar| Y[Selecionar arquivo JSON]
+    Y --> Z{Arquivo válido?}
+    Z -->|Não| J
+    Z -->|Sim| AA[Substituir lista de produtos]
+    AA --> L
+
+    F -->|Tema| AB[Alternar tema]
+    AB --> AC[Salvar tema no LocalStorage]
+    AC --> E
+
+✅ 3. Diagrama de Sequência (Sequence Diagram) - Cadastro de Produto
+Este diagrama representa a interação entre o usuário, interface, script e LocalStorage durante o processo de cadastro.
+
+sequenceDiagram
+    actor U as Usuário
+    participant UI as Interface (HTML)
+    participant JS as Script (JavaScript)
+    participant LS as LocalStorage
+
+    U->>UI: Preenche formulário e clica em "Adicionar"
+    UI->>JS: Dispara evento submit
+    JS->>JS: Valida campos e preço
+
+    alt Dados inválidos
+        JS->>UI: Exibe Toast de erro
+    else Dados válidos
+        JS->>JS: Cria novo produto (id, nome, preço, categoria)
+        JS->>LS: Salva produtos atualizados
+        JS->>UI: Renderiza tabela novamente
+        JS->>UI: Exibe Toast de sucesso
+    end
+
+✅4. Diagrama de Sequência (Sequence Diagram) - Exclusão de Produto
+Este diagrama representa o fluxo de exclusão de um produto.
+
+sequenceDiagram
+    actor U as Usuário
+    participant UI as Interface
+    participant JS as Script
+    participant LS as LocalStorage
+
+    U->>UI: Clica em "Excluir"
+    UI->>JS: Chama deleteProduct(id)
+    JS->>UI: Exibe confirmação
+
+    alt Usuário cancela
+        JS->>UI: Operação cancelada
+    else Usuário confirma
+        JS->>JS: Remove produto da lista
+        JS->>LS: Atualiza LocalStorage
+        JS->>UI: Renderiza tabela novamente
+        JS->>UI: Exibe Toast de removido
+    end
+
+✅5. Diagrama de Sequência (Sequence Diagram) - Importação de Produtos
+Este diagrama representa o fluxo de importação de produtos via arquivo JSON.
+
+sequenceDiagram
+    actor U as Usuário
+    participant UI as Interface
+    participant JS as Script
+    participant LS as LocalStorage
+
+    U->>UI: Seleciona arquivo JSON
+    UI->>JS: Dispara evento change
+    JS->>JS: Lê arquivo com FileReader
+    JS->>JS: Converte para JSON
+
+    alt Arquivo inválido
+        JS->>UI: Toast: erro ao importar
+    else Arquivo válido
+        JS->>JS: Atualiza lista de produtos
+        JS->>LS: Salva no LocalStorage
+        JS->>UI: Renderiza tabela atualizada
+        JS->>UI: Toast: importado com sucesso
+    end
+
+📌 Especificação de Requisitos
+✅ Requisitos Funcionais (RF)
+
+RF01 - O sistema deve permitir cadastrar produtos informando nome, preço e categoria.
+
+RF02 - O sistema deve listar todos os produtos cadastrados em formato de tabela.
+
+RF03 - O sistema deve permitir editar produtos existentes.
+
+RF04 - O sistema deve permitir excluir produtos mediante confirmação.
+
+RF05 - O sistema deve permitir buscar produtos por nome ou categoria.
+
+RF06 - O sistema deve permitir ordenar produtos por nome, preço ou categoria.
+
+RF07 - O sistema deve permitir exportar produtos cadastrados para arquivo JSON.
+
+RF08 - O sistema deve permitir importar produtos via arquivo JSON.
+
+RF09 - O sistema deve permitir alternar tema Dark/Light.
+
+RF10 - O sistema deve salvar e carregar dados utilizando LocalStorage.
+
+⚙️ Requisitos Não Funcionais (RNF)
+
+RNF01 - O sistema deve ser intuitivo e fácil de utilizar.
+
+RNF02 - O sistema deve responder rapidamente às ações do usuário.
+
+RNF03 - O sistema deve persistir dados no LocalStorage após recarregar a página.
+
+RNF04 - O sistema deve funcionar nos navegadores modernos (Chrome, Edge, Firefox).
+
+RNF05 - O sistema deve possuir validações para impedir entradas inválidas.
+
+RNF06 - O sistema deve possuir feedback visual para ações (Toast).
+
+📌 Regras de Negócio (RN)
+
+RN01 - Nome do produto não pode ser vazio.
+
+RN02 - Categoria não pode ser vazia.
+
+RN03 - Preço deve ser maior que zero.
+
+RN04 - Exclusão de produto deve exigir confirmação.
+
+👤 Histórias de Usuário (User Stories)
+
+US01 - Como usuário, quero cadastrar produtos para manter uma lista organizada.
+
+US02 - Como usuário, quero visualizar produtos cadastrados para consulta rápida.
+
+US03 - Como usuário, quero editar produtos para corrigir informações.
+
+US04 - Como usuário, quero excluir produtos para remover itens desnecessários.
+
+US05 - Como usuário, quero buscar produtos por nome ou categoria para encontrá-los facilmente.
+
+US06 - Como usuário, quero ordenar produtos para visualizar dados de forma organizada.
+
+US07 - Como usuário, quero exportar produtos para backup.
+
+US08 - Como usuário, quero importar produtos para restaurar dados.
+
+US09 - Como usuário, quero alternar o tema para melhorar conforto visual.
+
